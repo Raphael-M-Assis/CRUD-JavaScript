@@ -1,0 +1,31 @@
+<%- include('includes/head') %>
+<%- include('includes/nav') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center">Produtos</h1>
+      <p class="text-center lead">Seus produtos estão abaixo!</p>
+
+      <%- include('includes/messages') %>
+
+        <div class="responsive-table">
+          <table class="table my-3">
+            <tr>
+              <td>Miojo</td>
+              <td>Nissin</td>
+              <td>Galinha</td>
+              <td>R$ 2,25</td>
+            </tr>
+          </table>
+        </div>
+    
+    </div>
+
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+<%- include('includes/footer.ejs') %>
