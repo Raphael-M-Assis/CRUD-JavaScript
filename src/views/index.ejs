@@ -3,28 +3,56 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-2"></div>
+    <div class="col-lg-1"></div>
 
-    <div class="col-lg-8 my-3">
-      <h1 class="text-center">Produtos</h1>
-      <p class="text-center lead">Seus produtos estão abaixo!</p>
-
+    <div class="col-lg-10 my-3">
+      <h1 class="text-center">Página de Produtos</h1>
+      
+      
       <%- include('includes/messages') %>
 
+      <% if(!user) { %>
+        <p class="text-center lead my-5">Faça login no sistema para ter acesso aos produtos!
+          <a href="http://localhost:3000/login/index">Entre aqui</a>
+        </p>
+        
+      <% } else { %>
+        <% if(produtos.length > 0) { %>
         <div class="responsive-table">
           <table class="table my-3">
-            <tr>
-              <td>Miojo</td>
-              <td>Nissin</td>
-              <td>Galinha</td>
-              <td>R$ 2,25</td>
-            </tr>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Código</th>
+                <th>Edição</th>
+                <th>Exclusão</th>
+              </tr>
+            </thead>
+            <% produtos.forEach(produto => { %>
+              
+              <tbody>
+                <tr>
+                  <td><%= produto.nome %></td>
+                  <td><%= produto.preco %></td>
+                  <td><%= produto.quantidade %></td>
+                  <td><%= produto.codigo %></td>
+                  <td><a href="/produto/index/<%= produto._id %>">Editar</a></td>
+                  <td><a class="text-danger" href="/produto/delete/<%= produto._id %>">Excluir</a></td>
+                </tr>
+            </tbody>
+              <% }); %>
           </table>
         </div>
+        <% } else {%>
+          <p class="text-center lead">O Sistema não possui produtos cadastrados!</p>
+        <% } %>
+      <% } %>
     
     </div>
 
-    <div class="col-lg-2"></div>
+    <div class="col-lg-1"></div>
   </div>
 </div>
 

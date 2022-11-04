@@ -5,15 +5,18 @@
   <div class="row">
     <div class="col-lg-2"></div>
 
-    <div class="col-lg-8 my-3">
-      <h1 class="text-center">Produtos</h1>
-      <p class="text-center lead">Seus produtos estão abaixo!</p>
+    <div class="col-lg-8 my-5">
+      <h1 class="text-center">Cadastro de Produtos</h1>
+      <p class="text-center lead my-5">Nos campos abaixo você poderá criar seus produtos!</p>
 
       <%- include('includes/messages') %>
 
+      <% if(produto._id) { %>
+      <form action="/produto/edit/<%= produto._id %>" method="POST">
+      <% } else { %>
       <form action="/produto/register" method="POST">
-        <input type="hidden" name="_csrf" value=<%= csrfToken %>>
-        
+      <% } %>
+        <input type="hidden" name="_csrf" value=<%= csrfToken %>>        
         <div class="form-group">
           <label>Nome do Produto</label>
           <input value="<%= produto.nome %>" type="text" class="form-control" name="nome">
@@ -30,7 +33,7 @@
         </div>
 
         <div class="form-group">
-          <label>Codigo do Produto</label>
+          <label>Código do Produto</label>
           <input value="<%= produto.codigo %>"  type="text" class="form-control" name="codigo">
         </div>
         

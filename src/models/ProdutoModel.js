@@ -34,22 +34,37 @@ class Produto {
         this.cleanUp();
 
         if(!this.body.nome) this.errors.push('o nome é um campo obrigatório!')
+        if(0 > this.body.preco) this.errors.push('O preço deve ser maior que R$ 0,00')
         if(!this.body.codigo) this.errors.push('o código é um campo obrigatório!')
+        if(this.body.quantidade < 1) this.errors.push('A Quantidade de produtos deve ser de no mínimo 1')
+
 
         if(!this.body.preco) {
             this.errors.push('O preco é um campo obrigatório!')
 
             if(typeof this.body.preco !== 'number'){
-                this.errors.push('O preco deve ser um número válido!')
+                this.errors.push('O preço deve ser um número válido!')
             }
-        } 
+        }
+        
+        
         if(!this.body.quantidade) {
             this.errors.push('A quantidade é um campo obrigatório!')
 
             if(typeof this.body.quantidade !== 'number'){
                 this.errors.push('A quantidade deve ser um número válido!')
             }
-        } 
+            
+        }
+
+    }
+
+    async edited(id) {
+        if(typeof id !== 'string') return;
+        this.valida();
+
+        if(this.errors.length > 0) return;
+        this.produto = await ProdutoModel.findByIdAndUpdate(id, this.body, { new: true });
     }
 
     cleanUp() {
@@ -69,8 +84,21 @@ class Produto {
 };
 
 Produto.buscaPorId = async function(id) {
-    const prod = await ProdutoModel.findById(id);
-    return prod
+    if(typeof id !== 'string') return;
+    const produto = await ProdutoModel.findById(id);
+    return produto;
+}
+
+Produto.buscaProdutos = async function() {
+    const produto = await ProdutoModel.find()
+    .sort({ criadoEm: -1 });
+    return produto;
+}
+
+Produto.delete = async function(id) {
+    if(typeof id !== 'string') return;
+    const produto = await ProdutoModel.findOneAndDelete({ id: id });
+    return produto;
 }
 
 

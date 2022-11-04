@@ -21,4 +21,7 @@ route.get('/login/logout', loginController.logout)
 route.get('/produto/index', loginRequired, produtoController.index)
 route.post('/produto/register', loginRequired, produtoController.register)
 route.get('/produto/index/:id', loginRequired, produtoController.edit)
+route.post('/produto/edit/:id', loginRequired, produtoController.edited)
+route.get('/produto/delete/:id', loginRequired, produtoController.delete)
+
 module.exports = route;
